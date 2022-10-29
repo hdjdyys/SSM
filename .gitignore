@@ -1,0 +1,4 @@
+# 项目排除路径
+/mybatis_helloworld/target/
+/mybatis_helloworld1/target/
+/ssm/target/
