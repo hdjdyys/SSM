@@ -13,5 +13,32 @@
     <p>选择文件:<input type="file" name="fileName"></p>
     <p><input type="submit" value="提交"></p>
 </form>
+
+欢迎<span th:text="${user}"></span>
+<table>
+    <tr>
+        <th colspan="6">颜值排行榜</th>
+    </tr>
+    <tr>
+        <th>id</th>
+        <th>username</th>
+        <th>age</th>
+        <th>beauty</th>
+        <th>gender</th>
+        <th>glasses</th>
+        <th>expression</th>
+        <th>img</th>
+    </tr>
+    <tr th:each="face : ${faces.list}">
+        <td th:text="${face.id}"></td>
+        <td th:text="${face.username}"></td>
+        <td th:text="${face.age}"></td>
+        <td th:text="${face.beauty}"></td>
+        <td th:text="${face.gender}"></td>
+        <td th:text="${face.glasses}"></td>
+        <td th:text="${face.expression}"></td>
+        <td > <img th:src="${face.imgPath}"/></td>
+    </tr>
+</table>
 </body>
 </html>

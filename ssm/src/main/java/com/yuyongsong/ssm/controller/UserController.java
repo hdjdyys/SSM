@@ -55,6 +55,7 @@ public class UserController {
             System.out.println("账号或者密码错误");
             mav.setViewName("login");
         }else {
+            mav.addObject("user",user.getUsername());
             mav.setViewName("index");
         }
 
