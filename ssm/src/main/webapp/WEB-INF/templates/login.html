@@ -4,12 +4,93 @@
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
+<style>
+    html,body{
+        height: 100%;
+    }
+    body{
+        background: #006666;
+    }
+    h1{
+        color: #FFF;
+        text-align: center;
+    }
+    .container{
+        margin: 100px auto;
+        width: 30%;
+    }
+    form{
+        background: #FFF;
+        height: 300px;
+        width: 100%;
+        border-radius: 10px;
+        position: relative;
+    }
+    label{
+        color: #000;
+        font-weight: bold;
+        font-size: 20px;
+        margin-left: 40px;
+    }
+    input{
+        text-align: left;
+        margin: 10px;
+    }
+    .input{
+        width: 80%;
+        height: 35px;
+        margin-left: 40px;
+    }
+    .checkbox{
+        margin-left: 30px;
+    }
+    a{
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .submit{
+        display: inline-block;
+        margin-top: 10px;
+        margin-left: 175px;
+        background: #000;
+        border: none;
+        color: #FFF;
+        height: 35px;
+        width: 100px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    p{
+        text-align: center;
+        margin: 0;
+        color: red;
+    }
+    .left{
+        margin-left: 20px;
+    }
+    .right{
+        position: absolute;
+        right: 20px;
+    }
+</style>
 <body>
-<form th:action="@{/login.do}" method="post">
-    username:<input type="text" name="username"><br>
-    password:<input type="password" name="password"><br>
-    <p th:text="${svm}"></p>
-    <input type="submit" name="注册">
-</form>
+
+<div class="container">
+    <h1>用户登录</h1>
+    <form th:action="@{/login.do}" method="post">
+        <br>
+        <label for="username">用户名</label><br>
+        <input type="text" name="username" id="username" class="input" value="" placeholder="userName"><br>
+        <label for="password">密码</label><br>
+        <input type="password" name="password" id="password" class="input" value="" placeholder="password">
+        <p th:text="${svm}"></p>
+        <br>
+        <button type="submit" class="submit" id="btn">登录</button>
+        <br>
+        <a th:href="@{/index}" class="left">返回首页</a>
+        <a th:href="@{/register}" class="right">注册账号</a>
+    </form>
+</div>
 </body>
 </html>

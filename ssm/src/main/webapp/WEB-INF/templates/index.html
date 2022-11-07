@@ -1,44 +1,171 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: auto;
+            background-color: rgba(184, 213, 213, 0.362);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 30px;
+            margin-bottom: 100px;
+        }
+
+        h2 {
+            display: block;
+            font-size: 30px;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+
+        }
+
+        .intro {
+            text-indent: 50px;
+            width: 80%;
+            font-size: 15px;
+            line-height: 20px;
+            margin: 0 auto;
+        }
+
+        .intro p:first-child {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin-top: 40px;
+
+        }
+
+        form h3 {
+            font-size: 15px;
+        }
+
+        form .file {
+            display: block;
+            margin: auto;
+        }
+
+        form .submit {
+            width: 350px;
+            height: 30px;
+            border-radius: 10px;
+            background-color: rgba(0, 255, 251, 0.178);
+            margin-top: 10px;
+        }
+
+        .info {
+            list-style: none;
+            width: 100%;
+            margin: 20px auto;
+            /* background-color: aquamarine; */
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .info li {
+            width: 600px;
+            height: 400px;
+            background-color: rgba(0, 255, 251, 0.178);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info li div {
+            float: left;
+            width: 300px;
+            height: 400px;
+            line-height: 57px;
+            text-align: center;
+        }
+
+        .info li p {
+            display: inline;
+        }
+
+        .info li img {
+            width: 300px;
+            height: 400px;
+            border-radius: 20px;
+        }
+    </style>
 </head>
+
 <body>
-<h1>首页</h1>
-<a th:href="@{/employee}">查询所有的员工信息</a>
-<a th:href="@{/register}">注册</a>
-
-<form action="img" method="post"  enctype="multipart/form-data">
-    <p>选择文件:<input type="file" name="fileName"></p>
-    <p><input type="submit" value="提交"></p>
+<h1>Beauty evaluation system</h1>
+<h2>Welcome <span th:text="${user}"></span></h2>
+<div class="intro">
+    <p>Please select the picture you want. Why should we comment on others' looks?</p>
+    <p>Admit it, you are also a member of the "Appearance Association". In fact, you are constantly judging whether
+        a face looks good or not. From the perspective of evolution, we know that only faces that can indicate a
+        certain degree of evolutionary significance are defined as good-looking (Little, Jones, DeBruine,
+        2011)。 That is to say, good-looking or not is a collection of acquired concepts, which abstractly summarizes
+        all the features people like.
+        If you want to understand the persistence of human face attraction, let's start with a scene: today is your
+        first day at work, so how long do you think it will take you to judge whether a new colleague's face looks
+        good or not? The answer seems to vary from person to person. But scientists found through experiments that a
+        person can judge the attractiveness of a face very quickly. For example, Perrett
+        Doctors and colleagues (2001) found that even if a face is only presented for tens of milliseconds, that is,
+        less than 0.1 seconds, one can judge whether the face looks good or not in such a short time. Dr. will and
+        Dr. Todorov (2006) also further proved this point. Such an effective and automatic beauty judgment mechanism
+        is embedded in our brain. When judging faces, many brain regions work together. For example, fusiform Q
+        Face area) and superior temporal sulcus (STS) can comprehensively process face information; The insula °, an
+        area involving the reward system, will give us a sense of being rewarded when we see beautiful faces, which
+        will promote us to communicate with people who have beautiful faces (here it can be understood as having
+        certain excellent characteristics).
+        Why did you judge so quickly? Let's suppose such a scenario: as primitive people, we are hunting. At this
+        time, one person suggested to join us in hunting, and then divide the prey in proportion. So, do you choose
+        to let them join, or do you choose to keep the original number of people in the team? At this moment, we
+        will judge by each other's faces. Some people in the team will say that we have to judge whether this person
+        can be trusted, after all, unreliable people may harm us; Others will say that we should judge whether the
+        person's cooperation ability is good or not, because only a united team can do complex things well; Some
+        people even say that we should judge whether the person is healthy, strong or not. If he is not strong, he
+        may not be able to hunt well. These features can actually be found on the face. Through experiments and
+        statistical analysis, Dr. Todorov found that the characteristics of many faces are closely linked. The
+        beauty of a face is related to its trustworthiness and even its health. In this way, judging the beauty of a
+        face can more or less predict the social characteristics of the other person.
+        Since so many characteristics are crucial in the first contact, it is quick and efficient to judge whether
+        it looks good or not. Then is it not a matter of seeking distance without judging by the degree of
+        attractiveness? The "appearance association" still has some truth.
+    </p>
+</div>
+<form action="img.do" method="post" enctype="multipart/form-data">
+    <h3>Please select the picture you want</h3>
+    <input type="file" name="fileName" class="file">
+    <input type="submit" value="submit" class="submit">
 </form>
-
-欢迎<span th:text="${user}"></span>
-<table>
-    <tr>
-        <th colspan="6">颜值排行榜</th>
-    </tr>
-    <tr>
-        <th>id</th>
-        <th>username</th>
-        <th>age</th>
-        <th>beauty</th>
-        <th>gender</th>
-        <th>glasses</th>
-        <th>expression</th>
-        <th>img</th>
-    </tr>
-    <tr th:each="face : ${faces.list}">
-        <td th:text="${face.id}"></td>
-        <td th:text="${face.username}"></td>
-        <td th:text="${face.age}"></td>
-        <td th:text="${face.beauty}"></td>
-        <td th:text="${face.gender}"></td>
-        <td th:text="${face.glasses}"></td>
-        <td th:text="${face.expression}"></td>
-        <td > <img th:src="${face.imgPath}"/></td>
-    </tr>
-</table>
+<ul class="info">
+    <li th:each="face,status : ${faces}">
+        <div>
+            count：<p th:text="${status.count}"></p><br>
+            username：<p th:text="${face.username}"></p><br>
+            age：<p th:text="${face.age}"></p><br>
+            beauty：<p th:text="${face.beauty}"></p><br>
+            gender：<p th:text="${face.gender}"></p><br>
+            glasses：<p th:text="${face.glasses}"></p><br>
+            expression：<p th:text="${face.expression}"></p><br>
+        </div>
+        <img th:src="${face.imgPath}"/>
+</ul>
+</div>
 </body>
+
 </html>

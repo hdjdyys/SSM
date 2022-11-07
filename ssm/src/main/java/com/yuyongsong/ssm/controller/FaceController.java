@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -22,15 +22,16 @@ public class FaceController {
     @Autowired
     private FaceService faceService;
 
-    @RequestMapping("img")
-    public String img(@RequestParam("fileName" ) MultipartFile file ){
-        ModelAndView mav = new ModelAndView();
 
-        String username =null;
+    @RequestMapping("/img.do")
+    public ModelAndView img(@RequestParam("fileName" ) MultipartFile file,HttpSession session){
+
+
+        String username =(String) session.getAttribute("user");
 
         System.out.println(username);
-        String fileName = FaceSpot.saveFile(file,"D:\\yuyongsong\\zhaopian");
-
+        String fileName = FaceSpot.saveFile(file,"D:\\apply\\apache-tomcat-9.0.68\\webapps\\img");
+        ModelAndView modelAndView = new ModelAndView();
         if(fileName!=null){
             byte[] byface = FaceSpot.FileToByte(file);
 
@@ -52,17 +53,41 @@ public class FaceController {
                     face.setBeauty(beautyOne);
 
                     String gender = faceV3DetectBean.getResult().getFace_list().get(i).getGender().getType();
-                    face.setGender(gender);
+                    if(gender.equals("male")){
+                        face.setGender("男");
+                    }else if(gender.equals("female")){
+                        face.setGender("女");
+                    }
+
 
                     String glasses = faceV3DetectBean.getResult().getFace_list().get(i).getGlasses().getType();
-                    face.setGlasses(glasses);
+                    if(glasses.equals("none")){
+                        face.setGlasses("没有戴眼镜");
+                    }else if(glasses.equals("sun")){
+                        face.setGlasses("带了墨镜");
+                    }else if(glasses.equals("common")){
+                        face.setGlasses("带了普通眼镜");
+                    }
+
 
                     String expression = faceV3DetectBean.getResult().getFace_list().get(i).getExpression().getType();
-                    face.setExpression(expression);
-                    face.setImgPath("D:\\yuyongsong\\zhaopian"+fileName);
+                    if(expression.equals("none")){
+                        face.setExpression("不笑");
+                    }else if(expression.equals("smile")){
+                        face.setExpression("微笑");
+                    }else if(expression.equals("laugh")){
+                        face.setExpression("大笑");
+                    }
+
+                    face.setImgPath("http://localhost:8080/img/"+fileName);
 
                 }
                 faceService.insertFact(face);
+                List<Face> list = faceService.selectFactAll();
+                modelAndView.addObject("faces",list);
+                modelAndView.addObject("user",username);
+                modelAndView.setViewName("index");
+
             }else {
                 System.out.println("百度人脸检测有误");
             }
@@ -70,17 +95,9 @@ public class FaceController {
             System.out.println("请上传一张照片");
         }
 
-        return "redirect:/selectface";
-    }
-
-    @RequestMapping("selectface")
-    public ModelAndView selectface() throws Exception {
-        List<Face> list = faceService.selectFactAll();
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("faces",list);
-        modelAndView.setViewName("index");
         return modelAndView;
     }
+
+
 
 }
